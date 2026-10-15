@@ -1,7 +1,10 @@
-# Compiled class file
+# Java build outputs
+target/
+build/
+out/
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -22,3 +25,18 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# IDE settings
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Local database configuration and credentials
+.env
+src/main/resources/config/database.properties
