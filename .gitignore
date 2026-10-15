@@ -7,11 +7,13 @@ out/
 # Log files
 *.log
 
-# BlueJ files
-*.ctxt
+# Operating system files
+.DS_Store
+Thumbs.db
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Local configuration and secrets
+.env
+src/main/resources/config/database.properties
 
 # Package Files #
 *.jar
