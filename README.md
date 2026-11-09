@@ -1,32 +1,43 @@
 # Adaptive Quiz and Practice System
 
-Project framework only. No application, database, or test code has been added yet.
+A browser-based adaptive quiz platform. The repository currently contains the
+Spring Boot backend and MySQL database layer; the frontend will consume its
+REST API.
 
 ## Technology stack
 
-Java, Java Swing, MySQL, JDBC, Git, and GitHub.
+- Java 21 and Spring Boot
+- Spring Web MVC, Spring Security, and Spring Data JPA
+- MySQL
+- Maven and JUnit/Mockito
 
 ## Repository layout
 
 ```text
 src/main/java/com/adaptivequiz/
-  app/         application startup and wiring
-  auth/        registration and login
-  quiz/        quiz sessions and question management
-  scoring/     answer checking and adaptive rules
-  analytics/   progress analysis and recommendations
-  ui/          Java Swing screens and event handling
-  model/       shared domain objects
-  repository/  database access
-  db/          JDBC setup
-  util/        shared helpers
-src/main/resources/  configuration templates and images
-src/test/java/       feature tests
-database/            schema, seed data, and migrations
-docs/                team documentation
+  app/                        Spring Boot application entry point
+  person1_database_auth/      Database, JPA models, repositories, auth, and DTOs
+  person2_quiz/               Quiz lifecycle and question-delivery work
+  person3_scoring/            Scoring and difficulty-adaptation work
+  person4_analytics/          Performance analysis and recommendations
+  person5_ui/                 Browser frontend and backend integration work
+src/main/resources/           Spring application configuration
+src/test/java/                Automated tests
+database/                     MySQL schema and seed data
+docs/                         Team documentation
 ```
 
-## Start as a team
+## Run the backend
+
+1. Create and seed MySQL using [the database setup guide](database/RESET_AND_SETUP.md).
+2. Set `DB_PASSWORD` to the password for the `quiz_app` MySQL user.
+3. Run `mvn spring-boot:run`.
+4. Run `mvn test` to execute the automated tests.
+
+The currently exposed authentication API is rooted at `/api/auth`:
+`register`, `login`, `logout`, and `me`.
+
+## Team workflow
 
 1. Read [the role assignments](docs/TEAM_ROLES.md).
 2. Agree on [architecture](docs/ARCHITECTURE.md) and the [database plan](docs/DATABASE_PLAN.md).

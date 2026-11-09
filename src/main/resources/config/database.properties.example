@@ -1,2 +1,3 @@
 # Copy this as database.properties for local use. Do not commit the copied file.
-# Add the connection-setting names and local values when JDBC setup begins.
+# The Spring Boot datasource uses the equivalent values in application.properties.
+# Example environment variable: DB_PASSWORD=your-local-mysql-password

@@ -4,7 +4,7 @@
 
 1. Create GitHub issues and assign their owners.
 2. Agree on initial models, database schema, and feature contracts.
-3. Use one branch per feature: `feature/auth-login`, `feature/quiz-session`, `feature/adaptive-scoring`, `feature/analytics`, or `feature/swing-ui`.
+3. Use one branch per feature: `feature/auth-login`, `feature/quiz-session`, `feature/adaptive-scoring`, `feature/analytics`, or `feature/web-ui`.
 
 ## Pull requests
 
@@ -17,11 +17,11 @@
 ## Recommended integration order
 
 1. Domain models and database schema
-2. JDBC/repositories
+2. JPA repositories and REST contracts
 3. Authentication
 4. Quiz management
 5. Scoring and adaptive rules
 6. Analytics and recommendations
-7. Swing UI and final integration
+7. Web frontend and final integration
 
-Keep credentials only in a local ignored `database.properties` file; commit the example template only.
+Keep credentials out of version control. Configure the local database password through the `DB_PASSWORD` environment variable.

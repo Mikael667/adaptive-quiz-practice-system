@@ -2,19 +2,23 @@
 
 ## Goal
 
-Build a Java Swing desktop application that separates interface, application logic, and MySQL persistence.
+Build a browser-based adaptive quiz platform with a Spring Boot REST backend,
+a separate web frontend, and MySQL persistence.
 
-| Layer | Responsibility | Packages |
+| Layer | Responsibility | Location |
 |---|---|---|
-| User interface | Screens, events, navigation | `ui` |
-| Application logic | Quiz flow, scoring, adaptation, analytics, login | `quiz`, `scoring`, `analytics`, `auth` |
-| Domain model | Shared concepts and rules | `model` |
-| Persistence | JDBC operations and mapping | `repository`, `db` |
-| Setup | Startup and dependency wiring | `app` |
+| Web frontend | Pages, forms, navigation, and API calls | `person5_ui` |
+| HTTP API and security | REST endpoints, authentication, authorization | `person1_database_auth/auth` |
+| Application logic | Quiz flow, scoring, adaptation, analytics | `person2_quiz`, `person3_scoring`, `person4_analytics` |
+| Domain and persistence | JPA entities, repositories, MySQL schema | `person1_database_auth/model`, `person1_database_auth/repository`, `database` |
+| Setup | Spring Boot startup and configuration | `app` |
 
 ## Dependency rule
 
-The Swing UI requests actions from application logic. Application logic uses repositories for saved data. Database code must not control Swing components.
+The browser frontend communicates only with REST endpoints. Controllers call
+application services; services use repositories; repositories persist JPA
+entities to MySQL. Database and service code must not contain browser or UI
+logic.
 
 ## Main journey
 
@@ -24,11 +28,12 @@ The Swing UI requests actions from application logic. Application logic uses rep
 4. The student submits an answer.
 5. Scoring evaluates it and adapts the next difficulty.
 6. Results are saved and analysed.
-7. The UI shows performance and a recommendation.
+7. The frontend shows performance and a recommendation.
 
 ## Decisions before implementation
 
-- Password hashing library and policy
+- Frontend framework and deployment approach
+- Session or token authentication contract for the frontend
 - Quiz length and question types
 - Difficulty levels and adaptive thresholds
 - Incomplete-attempt handling
