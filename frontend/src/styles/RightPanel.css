@@ -1,0 +1,200 @@
+/* ===================================================
+   Right Panel Styles - Progress, Calendar & Activity
+   =================================================== */
+
+.app-right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Card Container inside Right Panel */
+.panel-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.panel-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.panel-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.panel-card-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-action-link {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-brown);
+}
+
+[data-theme='dark'] .panel-action-link {
+  color: var(--color-sand);
+}
+
+/* 1. Activity / Weekly Streak Calendar */
+.weekly-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.calendar-day-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.cal-day-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.cal-day-box {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.cal-day-box.active {
+  background: var(--color-brown);
+  color: var(--color-cream);
+  border-color: var(--color-brown);
+  box-shadow: 0 2px 6px rgba(129, 91, 70, 0.3);
+}
+
+.cal-day-box.today {
+  border-color: var(--color-sand);
+  font-weight: 800;
+}
+
+.streak-summary-text {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 2. Topic Mastery Levels */
+.mastery-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mastery-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mastery-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+}
+
+.mastery-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mastery-percentage {
+  font-weight: 700;
+  color: var(--color-brown);
+}
+
+[data-theme='dark'] .mastery-percentage {
+  color: var(--color-sand);
+}
+
+.mastery-track {
+  width: 100%;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background-color: var(--bg-surface-accent);
+  overflow: hidden;
+}
+
+.mastery-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-brown) 0%, var(--color-sand) 100%);
+  transition: width 0.6s ease;
+}
+
+/* 3. Recommended Next Session */
+.next-quiz-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.next-quiz-badge {
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface-accent);
+  color: var(--color-brown);
+  text-transform: uppercase;
+}
+
+[data-theme='dark'] .next-quiz-badge {
+  color: var(--color-sand);
+}
+
+.next-quiz-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.next-quiz-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.btn-start-session {
+  margin-top: 6px;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+}

@@ -1,0 +1,728 @@
+/* ===================================================
+   Home Page Styles - Structured Rectangular Cards
+   Palette: Brown, Espresso, Sand, Cream
+   =================================================== */
+
+/* ===================================================
+   1. HERO CARD (Central Top Banner)
+   =================================================== */
+.hero-card {
+  padding: 32px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-3d);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle 3D Abstract Knowledge Backdrop */
+.hero-3d-backdrop {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 440px;
+  height: 440px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.82;
+  animation: heroFloat 8s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  will-change: transform;
+}
+
+[data-theme='dark'] .hero-3d-backdrop {
+  opacity: 0.92;
+}
+
+/* Soft Ambient Glow Behind 3D Object */
+.hero-ambient-glow {
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(198, 154, 117, 0.22) 0%,
+    rgba(129, 91, 70, 0.1) 48%,
+    transparent 72%
+  );
+  filter: blur(44px);
+  pointer-events: none;
+}
+
+[data-theme='dark'] .hero-ambient-glow {
+  background: radial-gradient(
+    circle,
+    rgba(198, 154, 117, 0.28) 0%,
+    rgba(129, 91, 70, 0.16) 50%,
+    transparent 75%
+  );
+  filter: blur(50px);
+}
+
+.hero-3d-object {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Gyroscopic 3D Rotational Animations */
+.anim-ring-outer {
+  transform-origin: 250px 250px;
+  animation: gyroOuter 14s ease-in-out infinite alternate;
+}
+
+.anim-ring-middle {
+  transform-origin: 250px 250px;
+  animation: gyroMiddle 11s ease-in-out infinite alternate;
+}
+
+.anim-ring-meridian {
+  transform-origin: 250px 250px;
+  animation: gyroMeridian 9s ease-in-out infinite alternate;
+}
+
+.anim-core-outer {
+  transform-origin: 250px 250px;
+  animation: coreGlowPulse 4s ease-in-out infinite alternate;
+}
+
+.anim-core-inner {
+  transform-origin: 250px 250px;
+  animation: coreInnerShimmer 3.2s ease-in-out infinite alternate;
+}
+
+.anim-node {
+  animation: nodeFloat 6s ease-in-out infinite alternate;
+}
+
+.anim-node.node-b {
+  animation-duration: 7.5s;
+  animation-delay: -2s;
+}
+
+.anim-node.node-c {
+  animation-duration: 8.5s;
+  animation-delay: -4s;
+}
+
+@keyframes heroFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-12px) rotate(1.5deg);
+  }
+}
+
+@keyframes gyroOuter {
+  0% {
+    transform: rotate(-25deg);
+  }
+  100% {
+    transform: rotate(-14deg);
+  }
+}
+
+@keyframes gyroMiddle {
+  0% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(58deg);
+  }
+}
+
+@keyframes gyroMeridian {
+  0% {
+    transform: rotate(16deg);
+  }
+  100% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes coreGlowPulse {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.72;
+  }
+  100% {
+    transform: scale(1.08);
+    opacity: 0.96;
+  }
+}
+
+@keyframes coreInnerShimmer {
+  0% {
+    opacity: 0.75;
+    filter: drop-shadow(0 0 4px rgba(246, 240, 232, 0.6));
+  }
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(198, 154, 117, 0.9));
+  }
+}
+
+@keyframes nodeFloat {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-8px);
+  }
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-headline {
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.highlight-text {
+  background: linear-gradient(120deg, var(--color-brown) 0%, var(--color-sand) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme='dark'] .highlight-text {
+  background: linear-gradient(120deg, var(--color-sand) 0%, #E8D3C0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtext {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 520px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+/* Metrics Strip inside Hero */
+.hero-metrics-strip {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+}
+
+.metric-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-val {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-brown);
+  line-height: 1.1;
+}
+
+[data-theme='dark'] .metric-val {
+  color: var(--color-sand);
+}
+
+.metric-lbl {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.metric-divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--border-subtle);
+}
+
+/* ===================================================
+   INTERACTIVE QUIZ PREVIEW CARD (3D Depth)
+   =================================================== */
+.hero-interactive-col {
+  display: flex;
+  justify-content: center;
+}
+
+.quiz-preview-box {
+  width: 100%;
+  background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-3d);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.quiz-preview-box:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-3d-hover);
+}
+
+.preview-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.live-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #27AE60;
+  box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(39, 174, 96, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
+}
+
+.difficulty-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface-accent);
+  color: var(--color-brown);
+}
+
+[data-theme='dark'] .difficulty-badge {
+  color: var(--color-sand);
+}
+
+.preview-progress-track {
+  width: 100%;
+  height: 5px;
+  background-color: var(--bg-surface-accent);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.preview-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-brown) 0%, var(--color-sand) 100%);
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+.preview-prompt {
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.preview-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.preview-choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.preview-choice-btn:hover {
+  border-color: var(--color-sand);
+  background-color: var(--bg-surface-accent);
+}
+
+.preview-choice-btn.active {
+  border-color: var(--color-brown);
+  background-color: var(--bg-surface-accent);
+  font-weight: 600;
+}
+
+[data-theme='dark'] .preview-choice-btn.active {
+  border-color: var(--color-sand);
+}
+
+.choice-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: var(--color-brown);
+  flex-shrink: 0;
+}
+
+.preview-choice-btn.active .choice-indicator {
+  border-color: var(--color-brown);
+  background-color: var(--color-brown);
+  color: var(--color-cream);
+}
+
+[data-theme='dark'] .preview-choice-btn.active .choice-indicator {
+  border-color: var(--color-sand);
+  background-color: var(--color-sand);
+  color: var(--color-espresso);
+}
+
+.preview-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.xp-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.xp-val {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #27AE60;
+  background-color: rgba(39, 174, 96, 0.12);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+}
+
+.xp-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.feedback-tag {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ===================================================
+   2. FEATURES SECTION (Rectangular Card Grid)
+   =================================================== */
+.dashboard-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-head-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.features-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.feature-rect-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-top-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.feature-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-accent);
+  color: var(--color-brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
+}
+
+[data-theme='dark'] .feature-icon-box {
+  color: var(--color-sand);
+}
+
+.feature-rect-card:hover .feature-icon-box {
+  background-color: var(--color-brown);
+  color: var(--color-cream);
+  transform: scale(1.05);
+}
+
+[data-theme='dark'] .feature-rect-card:hover .feature-icon-box {
+  background-color: var(--color-sand);
+  color: var(--color-espresso);
+}
+
+.feature-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface-elevated);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  text-transform: uppercase;
+}
+
+.feature-card-heading {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.feature-card-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ===================================================
+   3. HOW IT WORKS (3 Rectangular Cards)
+   =================================================== */
+.steps-rect-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.step-rect-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.step-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.step-digit {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-sand);
+  line-height: 1;
+}
+
+.step-icon-pill {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-accent);
+  color: var(--color-brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-subtle);
+}
+
+[data-theme='dark'] .step-icon-pill {
+  color: var(--color-sand);
+}
+
+.step-card-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.step-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ===================================================
+   4. CTA BANNER CARD
+   =================================================== */
+.cta-banner-card {
+  background: linear-gradient(135deg, var(--color-espresso) 0%, #2A1D19 100%);
+  color: var(--color-cream);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  border: 1px solid rgba(198, 154, 117, 0.25);
+  box-shadow: var(--shadow-3d);
+}
+
+.cta-banner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cta-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(198, 154, 117, 0.2);
+  color: var(--color-sand);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.cta-heading {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-cream);
+  margin-bottom: 8px;
+  max-width: 600px;
+}
+
+.cta-sub {
+  font-size: 0.84rem;
+  color: var(--color-sand-light);
+  line-height: 1.5;
+  max-width: 520px;
+  margin-bottom: 20px;
+}
+
+.cta-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cta-outline-btn {
+  color: var(--color-cream);
+  border-color: rgba(246, 240, 232, 0.3);
+}
+
+.cta-outline-btn:hover {
+  background-color: rgba(246, 240, 232, 0.1);
+  color: var(--color-sand);
+  border-color: var(--color-sand);
+}
+
+.cta-perks-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  color: var(--color-sand);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ===================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   =================================================== */
+@media (max-width: 900px) {
+  .hero-3d-backdrop {
+    width: 320px;
+    height: 320px;
+    right: -40px;
+    top: -20px;
+    opacity: 0.55;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .features-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-rect-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-3d-backdrop {
+    width: 240px;
+    height: 240px;
+    right: -50px;
+    top: -20px;
+    opacity: 0.38;
+  }
+
+  .hero-card {
+    padding: 20px;
+  }
+
+  .hero-metrics-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .metric-divider {
+    display: none;
+  }
+}
