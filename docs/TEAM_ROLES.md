@@ -6,7 +6,7 @@
 | 2 | Quiz management | `quiz`, `model` | Questions, topics, answer options, quiz lifecycle |
 | 3 | Scoring and adaptation | `scoring` | Answer evaluation, percentages, difficulty rules |
 | 4 | Analytics and recommendations | `analytics` | Topic performance, weak areas, recommendations |
-| 5 | Frontend and integration | `person5_ui`, `app` | Browser pages, API integration, and final integration |
+| 5 | Frontend and integration | `frontend`, `app` | Browser pages, API integration, and final integration |
 
 ## Everyone
 

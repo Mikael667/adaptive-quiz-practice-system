@@ -20,7 +20,7 @@ src/main/java/com/adaptivequiz/
   person2_quiz/               Quiz lifecycle and question-delivery work
   person3_scoring/            Scoring and difficulty-adaptation work
   person4_analytics/          Performance analysis and recommendations
-  person5_ui/                 Browser frontend and backend integration work
+frontend/                     React browser frontend and backend integration work
 src/main/resources/           Spring application configuration
 src/test/java/                Automated tests
 database/                     MySQL schema and seed data

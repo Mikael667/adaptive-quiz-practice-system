@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CtaSection() {
+export default function CtaSection({ onGetStarted }) {
   return (
     <section className="cta-banner-card card-3d">
       <div className="cta-banner-content">
@@ -14,7 +14,7 @@ export default function CtaSection() {
           <button
             type="button"
             className="btn btn-sand"
-            onClick={() => alert('Registration: Free account signup coming soon!')}
+            onClick={onGetStarted}
           >
             <span>Start Free Practice</span>
             <svg

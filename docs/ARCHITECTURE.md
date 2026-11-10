@@ -7,7 +7,7 @@ a separate web frontend, and MySQL persistence.
 
 | Layer | Responsibility | Location |
 |---|---|---|
-| Web frontend | Pages, forms, navigation, and API calls | `person5_ui` |
+| Web frontend | Pages, forms, navigation, and API calls | `frontend` |
 | HTTP API and security | REST endpoints, authentication, authorization | `person1_database_auth/auth` |
 | Application logic | Quiz flow, scoring, adaptation, analytics | `person2_quiz`, `person3_scoring`, `person4_analytics` |
 | Domain and persistence | JPA entities, repositories, MySQL schema | `person1_database_auth/model`, `person1_database_auth/repository`, `database` |

@@ -219,6 +219,16 @@
   box-shadow: 0 4px 12px rgba(129, 91, 70, 0.35);
 }
 
+.authenticated-user {
+  max-width: 150px;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .sidebar-toggle-btn {

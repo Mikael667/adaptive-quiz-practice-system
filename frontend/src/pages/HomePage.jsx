@@ -12,6 +12,8 @@ import QuizPage from './QuizPage';
 import ResultsPage from './ResultsPage';
 import ProfilePage from './ProfilePage';
 import AnalyticsPage from './AnalyticsPage';
+import AuthModal from '../components/AuthModal';
+import { login, logout, register } from '../services/authApi';
 import '../styles/DashboardLayout.css';
 import '../styles/Home.css';
 
@@ -20,6 +22,8 @@ export default function HomePage() {
   const [currentView, setCurrentView] = useState('library'); // Set default or switchable view
   const [activeQuiz, setActiveQuiz] = useState(null);
   const [assessmentResult, setAssessmentResult] = useState(null);
+  const [authMode, setAuthMode] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [assessmentResults, setAssessmentResults] = useState(() => {
     try { const saved = JSON.parse(localStorage.getItem('assessment-results') || '[]'); return Array.isArray(saved) ? saved : []; } catch { return []; }
   });
@@ -52,6 +56,28 @@ export default function HomePage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleAuthenticate = async ({ mode, username, email, password }) => {
+    const response = mode === 'register'
+      ? await register({ username, email, password })
+      : await login({ username, password });
+
+    if (mode === 'login') {
+      setCurrentUser(response);
+      setAuthMode(null);
+      handleNavigate('dashboard');
+    }
+    return response;
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } finally {
+      setCurrentUser(null);
+      handleNavigate('dashboard');
+    }
+  };
+
   return (
     <div className="dashboard-root">
       {/* 1. Left Vertical Navigation Sidebar */}
@@ -69,6 +95,10 @@ export default function HomePage() {
           onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
           currentView={currentView}
           onNavigate={handleNavigate}
+          currentUser={currentUser}
+          onLogin={() => setAuthMode('login')}
+          onRegister={() => setAuthMode('register')}
+          onLogout={handleLogout}
         />
 
         {/* 3. Dashboard Body */}
@@ -86,7 +116,7 @@ export default function HomePage() {
               <HowItWorksSection />
 
               {/* Call to Action Banner */}
-              <CtaSection onGetStarted={() => handleNavigate('library')} />
+              <CtaSection onGetStarted={() => setAuthMode('register')} />
 
               {/* Structured Compact Footer */}
               <Footer />
@@ -117,6 +147,14 @@ export default function HomePage() {
         {currentView === 'analytics' && <div style={{ padding: '24px' }}><AnalyticsPage onLaunchRecommendedQuiz={handleStartQuiz} assessmentResults={assessmentResults} /></div>}
         {currentView === 'profile' && <div style={{ padding: '24px' }}><ProfilePage /></div>}
       </div>
+      {authMode && (
+        <AuthModal
+          mode={authMode}
+          onClose={() => setAuthMode(null)}
+          onSubmit={handleAuthenticate}
+          onSwitchMode={(mode) => setAuthMode(mode)}
+        />
+      )}
     </div>
   );
 }

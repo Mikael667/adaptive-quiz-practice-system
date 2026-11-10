@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ThemeToggle from './ThemeToggle';
 import '../styles/Navbar.css';
 
-export default function Navbar({ onToggleSidebar, currentView = 'dashboard', onNavigate }) {
+export default function Navbar({ onToggleSidebar, currentView = 'dashboard', onNavigate, currentUser, onLogin, onRegister, onLogout }) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleBreadcrumbClick = () => {
@@ -120,19 +120,17 @@ export default function Navbar({ onToggleSidebar, currentView = 'dashboard', onN
             <span className="notification-dot" />
           </button>
 
-          <button
-            className="btn-nav-login"
-            onClick={() => alert('Authentication: Login modal available soon!')}
-          >
-            Login
-          </button>
-
-          <button
-            className="btn-nav-signup"
-            onClick={() => alert('Registration: Sign Up modal available soon!')}
-          >
-            Sign Up
-          </button>
+          {currentUser ? (
+            <>
+              <span className="authenticated-user">Hi, {currentUser.username}</span>
+              <button className="btn-nav-login" onClick={onLogout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <button className="btn-nav-login" onClick={onLogin}>Login</button>
+              <button className="btn-nav-signup" onClick={onRegister}>Sign Up</button>
+            </>
+          )}
         </div>
       </div>
     </header>

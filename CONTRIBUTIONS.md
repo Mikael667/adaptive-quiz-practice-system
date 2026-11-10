@@ -24,7 +24,7 @@ src/main/java/com/adaptivequiz/
 ├── person2_quiz/                            # [PERSON 2] Question generation & quiz lifecycle
 ├── person3_scoring/                         # [PERSON 3] Scoring evaluation & difficulty adaptation
 ├── person4_analytics/                       # [PERSON 4] Recommendation engine
-└── person5_ui/                              # [PERSON 5] Browser frontend & API integration
+└── frontend/                                # [PERSON 5] React frontend & API integration
 ```
 
 ---
