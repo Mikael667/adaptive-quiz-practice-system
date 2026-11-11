@@ -1,7 +1,7 @@
 # Project Contribution & Architectural Overview
 
-**Team:** Mikael Zinsou, Denilson, Marlize, Wenya, and Harold
-**Architecture:** Spring Boot/MySQL backend and React/Vite frontend
+**Team:** Mikael Zinsou, Denilson, Marlize, Wenya, and Harold  
+**Architecture:** Spring Boot / MySQL backend & React / Vite frontend  
 **Project:** Adaptive Quiz and Practice System  
 **Institution:** GD Goenka University  
 
@@ -15,16 +15,11 @@ To guarantee modular separation of concerns and prevent code collision among tea
 src/main/java/com/adaptivequiz/
 ├── app/
 │   └── AdaptiveQuizApplication.java         # Global Spring Boot entry point
-├── person1_database_auth/                    # [PERSON 1 — MIKAEL]
-│   ├── auth/                                # Security, BCrypt, session, and registration
-│   ├── dto/                                 # Secure data transfer contracts (safe question views)
-│   ├── model/                               # JPA Entities mapping MySQL tables and views
-│   ├── repository/                          # Spring Data JPA database interfaces
-│   └── service/                             # Transactional persistence & aggregate calculations
-├── person2_quiz/                            # [PERSON 2 — DENILSON] Quiz lifecycle
-├── person3_scoring/                         # [PERSON 3 — MARLIZE] Scoring & adaptation
-├── person4_analytics/                       # [PERSON 4 — WENYA] Analytics & recommendations
-└── frontend/                                # [PERSON 5 — HAROLD] React frontend & API integration
+├── person1_database_auth/                    # [PERSON 1 — MIKAEL] Database, Persistence & Auth
+├── person2_quiz/                            # [PERSON 2 — DENILSON] Quiz lifecycle & session management
+├── person3_scoring/                         # [PERSON 3 — MARLIZE] Scoring algorithms & difficulty rules
+├── person4_analytics/                       # [PERSON 4 — WENYA] Performance analytics & weak topic detection
+└── frontend/                                # [PERSON 5 — HAROLD] React web UI & client-side integration
 ```
 
 ---
@@ -33,14 +28,14 @@ src/main/java/com/adaptivequiz/
 
 ### Mikael — Person 1: Database and Authentication
 
-The files below form the shared database/authentication foundation.
+Mikael implemented the MySQL database, JPA persistence layer, Spring Security configuration, and transactional attempt completion.
 
 | Package / Directory | File | Purpose |
 |---|---|---|
 | `database/schema/` | `schema.sql` | DDL creating 7 relational InnoDB tables and 1 student-safe view (`student_questions`) with foreign keys and check constraints. |
 | `database/seed/` | `001_subjects.sql` | Idempotent seed script inserting the 9 GD Goenka approved subjects. |
 | `database/seed/` | `002_topics.sql` | Syllabi topics catalogue for all approved courses. |
-| `database/seed/` | `003_sample_questions.sql` | Initial question bank for question generation and grading tests. |
+| `database/seed/` | `003_sample_questions.sql` | Initial question bank for question delivery and testing. |
 | `database/` | `RESET_AND_SETUP.md` | Verification instructions and automated DB reset commands. |
 | `...person1_database_auth.model` | `User.java` | JPA entity mapped to `users` with password hash, roles, and timestamps. |
 | `...person1_database_auth.model` | `Subject.java` | JPA entity mapped to `subjects` with subject code as primary key. |
@@ -72,20 +67,62 @@ The files below form the shared database/authentication foundation.
 
 ---
 
-## 3. How Teammates Interface with Person 1's Work
+### Denilson — Person 2: Quiz Management
 
-Teammates build their functionality on top of these exposed interfaces:
-* **Person 2 (Quiz Manager):** Injects `StudentQuestionRepository` and `QuizCompletionService` to fetch safe questions and submit student answers.
-* **Person 3 (Scoring & Adaptation):** References `Difficulty` enum and grading contracts in `QuizCompletionService`.
-* **Person 4 (Analytics):** Calls `TopicPerformanceTrackingService` to retrieve weak topics and accuracy stats.
-* **Person 5 (Frontend):** Connects to `AuthController` (`/api/auth/login`, `/api/auth/register`) and quiz REST endpoints.
+Denilson implemented the dynamic quiz lifecycle, question fetching, and session management.
 
-## 4. Feature Ownership
+| Package / Directory | File | Purpose |
+|---|---|---|
+| `...person2_quiz.controler` | `QuizController.java` | REST endpoints for starting a quiz (`/start`), retrieving next question (`/next`), submitting individual answers (`/submit`), and finishing quizzes (`/complete`). |
+| `...person2_quiz.service` | `QuizService.java` | In-memory session tracking, candidate question filtering by topic & dynamic difficulty, and question delivery. |
+| `...person2_quiz.service` | `QuizSession.java` | Session state model tracking current difficulty, answered questions, and streak counters. |
+| `...person2_quiz.service` | `AdaptiveLogic.java` | Bridge connecting session results with scoring and 3-correct / 2-wrong difficulty transitions. |
+| `...person2_quiz.model` | `AnswerOption.java` | Model representing answer choices and labels for questions. |
+| `src/test/...person2_quiz` | `AdaptiveLogicTest.java` | Unit tests for streak tracking and dynamic difficulty progression. |
 
-| Team member | Feature contribution |
-|---|---|
-| Mikael | MySQL schema, JPA mappings, repositories, authentication, and persistent quiz completion/performance tracking. |
-| Denilson | Quiz-session API: topic retrieval, question selection, answer submission, and quiz completion. |
-| Marlize | Shared scoring service, answer validation, score summaries, performance labels, and adaptive difficulty. |
-| Wenya | Student topic-performance analysis, weakest-topic identification, and study recommendations. |
-| Harold | React/Vite application, dashboard screens, quiz UI, styles, and authentication user experience. |
+---
+
+### Marlize — Person 3: Scoring and Adaptation
+
+Marlize implemented answer verification, percentage calculation, and performance evaluation.
+
+| Package / Directory | File | Purpose |
+|---|---|---|
+| `...person3_scoring` | `AnswerChecker.java` | Case-insensitive validation of user selected options against question answer keys. |
+| `...person3_scoring` | `ScoreCalculator.java` | Mathematical percentage scoring logic and precision rounding. |
+| `...person3_scoring` | `AdaptiveDifficulty.java` | Core difficulty transition rules based on student answer streaks. |
+| `...person3_scoring` | `QuizResult.java` | Scoring evaluation model containing final score, accuracy percentage, and performance classification. |
+| `...person3_scoring` | `AdaptiveQuizSystem.java` | Orchestrates end-to-end question evaluation and difficulty updates. |
+| `...person3_scoring` | `ScoringService.java` | Spring service wrapper exposing scoring and result calculation to the rest of the application. |
+| `src/test/...person3_scoring` | `ScoringServiceTest.java` | Unit tests for answer checking, accuracy calculation, and difficulty thresholds. |
+
+---
+
+### Wenya — Person 4: Analytics and Recommendations
+
+Wenya implemented student performance tracking, weak topic diagnostics, and study recommendations.
+
+| Package / Directory | File | Purpose |
+|---|---|---|
+| `...person4_analytics` | `AnalyticsController.java` | REST endpoints exposing analytics overview (`/overview`), subject summaries (`/summary`), weak topics (`/weak-topics`), and recommendations (`/recommendations`). |
+| `...person4_analytics` | `AnalyticsService.java` | Aggregates student quiz attempts, calculates subject-level accuracy, and identifies topics needing revision. |
+| `...person4_analytics` | `AnalyticsSystem.java` | Domain evaluation logic identifying practice needs based on accuracy thresholds. |
+
+---
+
+### Harold — Person 5: Frontend and Integration
+
+Harold built the client-side user interface using React, Vite, and modern CSS.
+
+| Package / Directory | File / Component | Purpose |
+|---|---|---|
+| `frontend/src/pages/` | `HomePage.jsx` | Landing page introducing the system, features, and call-to-action. |
+| `frontend/src/pages/` | `QuizPage.jsx` | Interactive test environment showing live questions, option selection, timer, and progress. |
+| `frontend/src/pages/` | `QuizLibraryPage.jsx` | Catalog of university subjects and topics where students select quizzes. |
+| `frontend/src/pages/` | `AnalyticsPage.jsx` | Performance dashboard displaying accuracy charts, weak areas, and progress. |
+| `frontend/src/pages/` | `ProfilePage.jsx` | Student profile overview, settings, and study history. |
+| `frontend/src/pages/` | `ResultsPage.jsx` | Post-quiz score summary, performance badges, and review answers. |
+| `frontend/src/components/` | `Navbar.jsx`, `Sidebar.jsx`, `Footer.jsx` | Application navigation and responsive layout framework. |
+| `frontend/src/services/` | `authApi.js` | REST client connecting frontend to Person 1's authentication API (`/api/auth/*`). |
+| `frontend/src/services/` | `academicData.js` | University curriculum, subject codes, and topic listings for client navigation. |
+| `frontend/src/services/` | `theme.js` | Dark/light mode theme management. |
