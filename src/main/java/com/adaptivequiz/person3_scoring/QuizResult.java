@@ -1,23 +1,28 @@
+package com.adaptivequiz.person3_scoring;
+
+import com.adaptivequiz.person1_database_auth.model.Difficulty;
+
+/** Immutable scoring result for a completed quiz. */
 public class QuizResult {
 
-    private int totalQuestions;
-    private int correctAnswers;
-    private int incorrectAnswers;
-    private double percentage;
-    private String finalDifficulty;
+    private final int totalQuestions;
+    private final int correctAnswers;
+    private final int incorrectAnswers;
+    private final double percentage;
+    private final Difficulty finalDifficulty;
 
     public QuizResult(
             int totalQuestions,
             int correctAnswers,
             int incorrectAnswers,
             double percentage,
-            String finalDifficulty) {
+            Difficulty finalDifficulty) {
 
         this.totalQuestions = totalQuestions;
         this.correctAnswers = correctAnswers;
         this.incorrectAnswers = incorrectAnswers;
         this.percentage = percentage;
-        this.finalDifficulty = finalDifficulty;
+        this.finalDifficulty = finalDifficulty == null ? Difficulty.EASY : finalDifficulty;
     }
 
     public int getTotalQuestions() {
@@ -36,7 +41,7 @@ public class QuizResult {
         return percentage;
     }
 
-    public String getFinalDifficulty() {
+    public Difficulty getFinalDifficulty() {
         return finalDifficulty;
     }
     public String getPerformanceLevel() {
@@ -51,4 +56,4 @@ public class QuizResult {
             return "Poor";
         }
     }
-}   
+}

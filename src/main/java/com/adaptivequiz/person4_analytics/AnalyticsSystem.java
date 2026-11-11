@@ -1,3 +1,5 @@
+package com.adaptivequiz.person4_analytics;
+
 import java.util.*;
  
 public class AnalyticsSystem {

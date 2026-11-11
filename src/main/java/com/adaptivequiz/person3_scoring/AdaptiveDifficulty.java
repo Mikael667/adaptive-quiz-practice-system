@@ -1,9 +1,25 @@
+package com.adaptivequiz.person3_scoring;
+
+import com.adaptivequiz.person1_database_auth.model.Difficulty;
+
+/**
+ * Stateful difficulty tracker for one quiz session. Three consecutive correct
+ * answers increase difficulty; two consecutive incorrect answers decrease it.
+ */
 public class AdaptiveDifficulty {
 
-    private String difficulty = "EASY";
+    private Difficulty difficulty;
 
     private int consecutiveCorrect = 0;
     private int consecutiveIncorrect = 0;
+
+    public AdaptiveDifficulty() {
+        this(Difficulty.EASY);
+    }
+
+    public AdaptiveDifficulty(Difficulty startingDifficulty) {
+        this.difficulty = startingDifficulty == null ? Difficulty.EASY : startingDifficulty;
+    }
 
     public void processAnswer(boolean correct) {
 
@@ -37,29 +53,23 @@ public class AdaptiveDifficulty {
 
     private void increaseDifficulty() {
 
-        if (difficulty.equals("EASY")) {
-
-            difficulty = "MEDIUM";
-
-        } else if (difficulty.equals("MEDIUM")) {
-
-            difficulty = "HARD";
+        if (difficulty == Difficulty.EASY) {
+            difficulty = Difficulty.MEDIUM;
+        } else if (difficulty == Difficulty.MEDIUM) {
+            difficulty = Difficulty.HARD;
         }
     }
 
     private void decreaseDifficulty() {
 
-        if (difficulty.equals("HARD")) {
-
-            difficulty = "MEDIUM";
-
-        } else if (difficulty.equals("MEDIUM")) {
-
-            difficulty = "EASY";
+        if (difficulty == Difficulty.HARD) {
+            difficulty = Difficulty.MEDIUM;
+        } else if (difficulty == Difficulty.MEDIUM) {
+            difficulty = Difficulty.EASY;
         }
     }
 
-    public String getDifficulty() {
+    public Difficulty getDifficulty() {
         return difficulty;
     }
 }

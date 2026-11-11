@@ -1,7 +1,7 @@
 # Project Contribution & Architectural Overview
 
-**Student:** Mikael Zinsou  
-**Assigned Area:** Person 1 — Database & Authentication  
+**Team:** Mikael Zinsou, Denilson, Marlize, Wenya, and Harold
+**Architecture:** Spring Boot/MySQL backend and React/Vite frontend
 **Project:** Adaptive Quiz and Practice System  
 **Institution:** GD Goenka University  
 
@@ -15,23 +15,25 @@ To guarantee modular separation of concerns and prevent code collision among tea
 src/main/java/com/adaptivequiz/
 ├── app/
 │   └── AdaptiveQuizApplication.java         # Global Spring Boot entry point
-├── person1_database_auth/                    # [OWNED BY MIKAEL ZINSOU]
+├── person1_database_auth/                    # [PERSON 1 — MIKAEL]
 │   ├── auth/                                # Security, BCrypt, session, and registration
 │   ├── dto/                                 # Secure data transfer contracts (safe question views)
 │   ├── model/                               # JPA Entities mapping MySQL tables and views
 │   ├── repository/                          # Spring Data JPA database interfaces
 │   └── service/                             # Transactional persistence & aggregate calculations
-├── person2_quiz/                            # [PERSON 2] Question generation & quiz lifecycle
-├── person3_scoring/                         # [PERSON 3] Scoring evaluation & difficulty adaptation
-├── person4_analytics/                       # [PERSON 4] Recommendation engine
-└── frontend/                                # [PERSON 5] React frontend & API integration
+├── person2_quiz/                            # [PERSON 2 — DENILSON] Quiz lifecycle
+├── person3_scoring/                         # [PERSON 3 — MARLIZE] Scoring & adaptation
+├── person4_analytics/                       # [PERSON 4 — WENYA] Analytics & recommendations
+└── frontend/                                # [PERSON 5 — HAROLD] React frontend & API integration
 ```
 
 ---
 
-## 2. Complete File Manifest for Mikael Zinsou
+## 2. Contributions by Team Member
 
-Every file below was authored and implemented by Mikael Zinsou as part of the Database and Authentication responsibility.
+### Mikael — Person 1: Database and Authentication
+
+The files below form the shared database/authentication foundation.
 
 | Package / Directory | File | Purpose |
 |---|---|---|
@@ -77,3 +79,13 @@ Teammates build their functionality on top of these exposed interfaces:
 * **Person 3 (Scoring & Adaptation):** References `Difficulty` enum and grading contracts in `QuizCompletionService`.
 * **Person 4 (Analytics):** Calls `TopicPerformanceTrackingService` to retrieve weak topics and accuracy stats.
 * **Person 5 (Frontend):** Connects to `AuthController` (`/api/auth/login`, `/api/auth/register`) and quiz REST endpoints.
+
+## 4. Feature Ownership
+
+| Team member | Feature contribution |
+|---|---|
+| Mikael | MySQL schema, JPA mappings, repositories, authentication, and persistent quiz completion/performance tracking. |
+| Denilson | Quiz-session API: topic retrieval, question selection, answer submission, and quiz completion. |
+| Marlize | Shared scoring service, answer validation, score summaries, performance labels, and adaptive difficulty. |
+| Wenya | Student topic-performance analysis, weakest-topic identification, and study recommendations. |
+| Harold | React/Vite application, dashboard screens, quiz UI, styles, and authentication user experience. |

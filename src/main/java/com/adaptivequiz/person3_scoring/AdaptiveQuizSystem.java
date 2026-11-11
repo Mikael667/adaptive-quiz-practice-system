@@ -1,3 +1,11 @@
+package com.adaptivequiz.person3_scoring;
+
+import com.adaptivequiz.person1_database_auth.model.Difficulty;
+
+/**
+ * Manual console demonstration of the scoring rules. The Spring application
+ * uses {@link ScoringService}; this class is not an application entry point.
+ */
 public class AdaptiveQuizSystem {
 
     public static void main(String[] args) {

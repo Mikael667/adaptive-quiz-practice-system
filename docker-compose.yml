@@ -1,0 +1,41 @@
+services:
+  database:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: adaptive_quiz
+      MYSQL_USER: quiz_app
+      MYSQL_PASSWORD: quiz_app_dev_password
+      MYSQL_ROOT_PASSWORD: root_dev_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema/schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+      - ./database/seed/001_subjects.sql:/docker-entrypoint-initdb.d/002_subjects.sql:ro
+      - ./database/seed/002_topics.sql:/docker-entrypoint-initdb.d/003_topics.sql:ro
+      - ./database/seed/003_sample_questions.sql:/docker-entrypoint-initdb.d/004_questions.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot_dev_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build:
+      context: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/adaptive_quiz
+      SPRING_DATASOURCE_USERNAME: quiz_app
+      SPRING_DATASOURCE_PASSWORD: quiz_app_dev_password
+    depends_on:
+      database:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
